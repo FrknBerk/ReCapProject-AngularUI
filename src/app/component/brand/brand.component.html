@@ -1,0 +1,86 @@
+<div *ngIf="dataLoaded == false" class="spinner-border text-dark" role="status">
+  <span class="visually-hidden"></span>
+</div>
+<button
+  style="margin: 10px"
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Marka Ekle
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Marka</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <!-- <span aria-hidden="true">&times;</span> -->
+        </button>
+      </div>
+     
+      <div class="modal-body">
+        <form [formGroup]="brandAddForm">
+          <div class="form-group">
+            <label for="brandName">Marka</label><span> * </span>
+            <input
+              type="text"
+              id="brandName"
+              formControlName="brandName"
+              class="form-control"
+              placeholder="Marka"
+            />
+          </div>
+          
+        </form>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Kapat
+        </button>
+        <button class="btn btn-primary" (click)="add()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Marka adı</th>
+      <th>İşlemler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let brand of brands">
+      <th>{{ brand.brandId }}</th>
+      <td>{{ brand.brandName }}</td>
+      <td>
+        <div  class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button"  id="dropdownMenuButton1" data-bs-toggle="dropdown"  aria-haspopup="true"  aria-expanded="false">
+                <i class="bi bi-gear"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Güncele</a></li>
+              <li><a class="dropdown-item" href="#">Sil</a></li>
+            </ul>
+          </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

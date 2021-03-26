@@ -1,0 +1,73 @@
+<div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+<button
+  style="margin: 10px"
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Renk Ekle
+</button>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Renk</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <!-- <span aria-hidden="true">&times;</span> -->
+        </button>
+      </div>
+     
+      <div class="modal-body">
+        <form [formGroup]="colorAddForm">
+          <div class="form-group">
+            <label for="colorName">Renk</label><span> * </span>
+            <input
+              type="text"
+              id="colorName"
+              class="form-control"
+              formControlName="colorName"
+              placeholder="Renk"
+            />
+          </div>
+          
+        </form>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Kapat
+        </button>
+        <button class="btn btn-primary" (click)="add()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Renk adı</th>
+        </tr>
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let color of colors">
+            <th>{{color.colorId}}</th>
+            <td>{{color.colorName}}</td>
+        </tr>
+    </tbody>
+</table>
