@@ -1,6 +1,14 @@
 <div *ngIf="dataLoaded == false" class="spinner-border text-dark" role="status">
   <span class="visually-hidden"></span>
 </div>
+<div class="mb-3">
+  <label for="filterText" class="form-label">Araba ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" 
+  placeholder="arama ifadesi giriniz">
+</div>
+<div *ngIf="filterText.length>2" class="alert alert-success">
+  {{filterText}} aradınız.
+</div>
 <table class="table">
   <thead>
     <tr>
@@ -13,9 +21,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let car of cars">
+    <tr *ngFor="let car of cars | filterCarPipe:filterText">
       <th>{{ car.carId }}</th>
-      <td>{{ car.brandName }}</td>
+      <td>{{ car.brandName | uppercase}}</td>
       <td>{{ car.colorName }}</td>
       <td>{{ car.dailyPrice }}</td>
       <td>{{ car.description }}</td>

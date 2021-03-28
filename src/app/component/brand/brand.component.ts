@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
 import {
   FormGroup,
@@ -16,19 +16,38 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class BrandComponent implements OnInit {
   brands: Brand[] = [];
-  brandAddForm  !: FormGroup;
+  
   dataLoaded = false;
+  filterText="";
+
+  UpdateBrandComp:boolean=false;
+  brnd:any;
+  
+  brandId?:number;
+  brandName?:string;
 
   constructor(
     private brandService: BrandService,
-    private formBuilder: FormBuilder,
     private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.getBrands();
-    this.createBrandAddForm();
   }
+
+  addClick(){
+    this.brnd ={
+      brandId:0,
+      brandName:""
+    }
+    this.UpdateBrandComp=true;
+  }
+
+  closeClick(){
+    this.UpdateBrandComp=false;
+    this.getBrands();
+  }
+
 
   getBrands() {
     this.brandService.getBrands().subscribe((response) => {
@@ -37,34 +56,20 @@ export class BrandComponent implements OnInit {
     });
   }
 
-  createBrandAddForm() {
-    this.brandAddForm = this.formBuilder.group({
-      brandName: ['', Validators.required],
-      getState:[true,Validators.required]
-    });
+  
+
+  delete(brand:Brand){
+    if(confirm("Silmek istediğinize emin misiniz?")){
+      this.brandService.delete(brand).subscribe(response => {
+        this.toastrService.success(response.message,"Silindi");
+        this.getBrands();
+      })
+    }
   }
 
-  add() {
-    if (this.brandAddForm.valid) {
-      let brandModel = Object.assign({}, this.brandAddForm.value);
-      this.brandService.add(brandModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Başarılı');
-          this.getBrands();
-        },
-        (responseError) => {
-          if (responseError.error.Errors?.length > 0) {
-            for (let i = 0; i < responseError.error.Errors?.length; i++) {
-              this.toastrService.error(
-                responseError.error.Errors[i].ErrorMessage,
-                'Doğrulama hatası'
-              )
-            }
-          }
-        }
-      )
-    } else {
-      this.toastrService.error('Formunuz eksik', 'Dikkat');
-    }
+  updateBrand(item:any){
+    this.brnd=item;
+    this.UpdateBrandComp=true;
+   
   }
 }

@@ -1,0 +1,27 @@
+<div class="d-flex flex-row bd-highlight mb-3">
+  <form [formGroup]="brandAddForm">
+    <div class="form-group">
+      <label for="colorName">Marka</label><span> * </span>
+      <input
+        type="text"
+        id="colorName"
+        class="form-control"
+        [(ngModel)]="brandName"
+        formControlName="brandName"
+        placeholder="Marka"
+      />
+    </div>
+  </form>
+</div>
+
+<button class="btn btn-primary" (click)="add()" *ngIf="brnd.brandId == 0">
+  Ekle
+</button>
+
+<button
+  class="btn btn-primary"
+  (click)="updateBrand()"
+  *ngIf="brnd.brandId != 0"
+>
+  Güncelle
+</button>

@@ -1,0 +1,27 @@
+<div class="d-flex flex-row bd-highlight mb-3">
+  <form [formGroup]="colorAddForm">
+    <div class="form-group">
+      <label for="colorName">Renk</label><span> * </span>
+      <input
+        type="text"
+        id="colorName"
+        class="form-control"
+        [(ngModel)]="colorName"
+        formControlName="colorName"
+        placeholder="Renk"
+      />
+    </div>
+  </form>
+</div>
+
+<button class="btn btn-primary" (click)="add()" *ngIf="clr.colorId == 0">
+  Ekle
+</button>
+
+<button
+  class="btn btn-primary"
+  (click)="updateColor()"
+  *ngIf="clr.colorId != 0"
+>
+  Güncelle
+</button>

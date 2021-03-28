@@ -5,6 +5,8 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { Brand } from '../models/brand';
 import { ResponseModel } from '../models/responseModel';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,5 +22,12 @@ export class BrandService {
   
   add(brand:Brand):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiUrl+'brands/add',brand)
+  }
+
+  delete(brand:Brand) : Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl+'brands/delete',brand);
+  }
+  update(brand:any):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl+'brands/update',brand);
   }
 }
